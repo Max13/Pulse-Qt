@@ -1,6 +1,8 @@
 build/
 src/Pulse/resources/Output/
-src/Pulse/*.pro.user
+
+# Qt specific
+*.pro.user
 
 # Compiled Object files
 *.slo

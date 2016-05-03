@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Pulse"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Adnan RIHAN"
 #define MyAppExeName "Pulse.exe"
 
@@ -10,7 +10,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{E3A95C9B-F607-435F-B6D6-0D525DC5B964}
+AppId={E3A95C9B-F607-435F-B6D6-0D525DC5B964}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -18,7 +18,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 DisableProgramGroupPage=yes
-OutputBaseFilename=Setup_Pulse-1.0
+OutputBaseFilename={#MyAppName}-{#MyAppVersion}_Win32
 SetupIconFile=Z:\Max13\Dev\Web\DFSA\Pulse\src\Pulse\resources\icon.ico
 Compression=lzma
 SolidCompression=yes

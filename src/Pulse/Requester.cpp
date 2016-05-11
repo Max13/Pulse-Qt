@@ -1,12 +1,16 @@
 #include <QApplication>
 #include "Requester.hpp"
 
-Requester::Requester(QObject *parent) : QObject(parent)
+Requester::Requester(QSettings &set, QObject *parent)
+    : QObject(parent), m_set(set)
 {
     this->m_netManager = new QNetworkAccessManager(this);
-    this->m_baseUrl = this->m_set.value("baseUrl").toString();
-    this->m_uuid = this->m_set.value("id").toString();
+    this->m_baseUrl = set.value("baseUrl").toString();
+    this->m_uuid = set.value("id").toString();
     this->m_new = this->m_uuid.isEmpty();
+
+    qDebug() << "Settings:" << set.fileName();
+    qDebug() << "Is new:" << this->m_new;
 }
 
 bool    Requester::init(void)

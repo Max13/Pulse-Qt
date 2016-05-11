@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Pulse"
-#define MyAppVersion "1.1"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "Adnan RIHAN"
 #define MyAppExeName "Pulse.exe"
 
@@ -10,7 +10,7 @@
 ; NOTE: The value of AppId uniquely identifies this application.
 ; Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={E3A95C9B-F607-435F-B6D6-0D525DC5B964}
+AppId={{E3A95C9B-F607-435F-B6D6-0D525DC5B964}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -27,20 +27,29 @@ SolidCompression=yes
 Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
+[CustomMessages]
+english.InstallAsService=Install as a service
+french.InstallAsService=Installer en tant que service
+
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
+;Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
 Source: "C:\Documents and Settings\Max13\Bureau\Pulse\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commonstartup}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
-Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
-Name: "{commonappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
+Name: "{group}\{cm:LaunchProgram,{#MyAppName}}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{group}\{#MyAppName} - Install service"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-i"
+Name: "{group}\{#MyAppName} - Uninstall service"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-u"
+Name: "{group}\{#MyAppName} - Stop service"; Filename: "{app}\{#MyAppExeName}"; Parameters: "-t"
+Name: "{group}\{#MyAppName} - Reset"; Filename: "{app}\{#MyAppExeName}"; Parameters: "--reset"
+Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#MyAppExeName}"; Parameters: "-i"; Description: "{cm:InstallAsService}"
+Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall
 
+[UninstallRun]
+Filename: "{app}\{#MyAppExeName}"; Parameters: "-t"
+Filename: "{app}\{#MyAppExeName}"; Parameters: "-u"

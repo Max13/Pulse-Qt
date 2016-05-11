@@ -24,13 +24,13 @@ class Requester : public QObject
         QNetworkAccessManager   *m_netManager;
         QNetworkRequest         m_netRequest;
         QNetworkReply           *m_netReply;
-        QSettings               m_set;
+        QSettings               &m_set;
         QString                 m_baseUrl;
         QString                 m_uuid;
         QTimer                  m_timer;
 
     public:
-        Requester(QObject *parent = 0);
+        Requester(QSettings &set, QObject *parent = 0);
 
         bool                    isNew(void) {return this->m_new;}
 

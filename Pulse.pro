@@ -1,8 +1,13 @@
 TEMPLATE    =  subdirs
 
-SUBDIRS     +=  Pulse \
+SUBDIRS     +=  Pulse-App \
+                Pulse-Service \
                 QtService
 
-Pulse.file      =   src/Pulse/Pulse.pro
-Pulse.depends   =   QtService
-QtService.file  =   libs/qtservice/qtservice.pro
+Pulse-App.file          =   src/App/App.pro
+Pulse-App.depends       =   Pulse-Service
+
+Pulse-Service.file      =   src/Service/Service.pro
+Pulse-Service.depends   =   QtService
+
+QtService.file          =   libs/qtservice/qtservice.pro
